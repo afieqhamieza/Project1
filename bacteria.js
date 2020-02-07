@@ -1,66 +1,104 @@
-var canvas = document.getElementById("webgl"),
-    circleCanvas = document.getElementById("circleBig")
-    ctx = canvas.getContext('2d'),
-    circles = [],
-    tolong = circleCanvas.getContext('2d');
-  
-// document.body.appendChild(canvas); //i am not sure if this is neccessary or not
+// Vertex shader program 
+var VSHADER_SOURCE =
+    'attribute vec4 a_Position;\n' +
+    'attribute float a_PointSize;\n' +
+    'void main() {\n' +
+    ' gl_Position = a_Position;\n' +
+    ' gl_PointSize = a_PointSize;\n' +
+    '}\n';
 
-function drawCircle(radius)
-{
-    tolong.beginPath();
-    tolong.arc(500, 500, radius, 0, 2 * Math.PI);
-    tolong.stroke();
+// Fragment shader program 
+var FSHADER_SOURCE =
+    'precision mediump float;\n' +
+    'uniform vec4 u_FragColor;\n' + // uniform variable
+    'void main() {\n' +
+    'float dist = distance(gl_PointCoord, vec2(0.5, 0.5));\n' +
+    'if(dist < 0.5) {\n' + // Radius is 0.5
+    'gl_FragColor = vec4(1.0, 0.0, 0.0, 0.0);\n' +
+    '} else { discard; }\n' +
+    '}\n';
+
+function main() {
+
+    // Retrieve <canvas> element
+    var canvas = document.getElementById('webgl');
+
+    // Get the rendering context for WebGL 
+    var gl = getWebGLContext(canvas);
+
+    if (!gl) {
+        console.log('Failed to get the rendering context for WebGL');
+        return;
+    }
+
+    // Initialize shaders
+    if (!initShaders(gl, VSHADER_SOURCE, FSHADER_SOURCE)) {
+        console.log('Failed to initialize shaders.');
+        return;
+    }
+
+    //set the position of vertices
+    var n = initVertexBuffer(gl);
+    if (n < 0) {
+        console.log('Failed to set the positions of the vertices');
+        return;
+
+    }
+
+    // Set the color for clearing <canvas>
+    gl.clearColor(0.0, 0.0, 0.0, 1.0);
+
+    // Clear <canvas> 
+    gl.clear(gl.COLOR_BUFFER_BIT);
+
+    // Draw points
+    gl.drawArrays(gl.POINTS, 0, n);
 }
 
-function Circle(x, y, radius) 
-{
-  var c = new Path2D();
-  c.arc(x, y, radius, 0, Math.PI * 2);
-  return c;
+function initVertexBuffer(gl) {
+    var vertices = new Float32Array([0.0, 0.0, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5]);    // point positions
+    var sizes = new Float32Array([1010.0, 30.0, 30.0, 30.0, 30.0]); // Point sizes
+
+    // The number of vertices
+    var n = 5;
+
+    // Create two buffer objects: one for position, one for size
+    var vertexBuffer = gl.createBuffer();
+    var sizeBuffer = gl.createBuffer();
+
+    if (!vertexBuffer) {
+        console.log('Failed to create the buffer object ');
+        return -1;
+    }
+
+    // bind and Write point positions to the buffer object 
+    gl.bindBuffer(gl.ARRAY_BUFFER, vertexBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, vertices, gl.STATIC_DRAW);
+
+    //get storage location of attribute var
+    var a_Position = gl.getAttribLocation(gl.program, 'a_Position');
+    var a_PointSize = gl.getAttribLocation(gl.program, 'a_PointSize');
+
+    if (a_Position < 0) {
+        console.log('Failed to get the storage location of a_Position');
+        return;
+    }
+
+    // Assign the buffer object to a_Position 
+    gl.vertexAttribPointer(a_Position, 2, gl.FLOAT, false, 0, 0);
+
+    // Enable the assignment to a_Position variable
+    gl.enableVertexAttribArray(a_Position);
+
+    // bind and Write point sizes to the buffer object
+    gl.bindBuffer(gl.ARRAY_BUFFER, sizeBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, sizes, gl.STATIC_DRAW);
+
+    //assigning buffer object to a_PointSize
+    gl.vertexAttribPointer(a_PointSize, 1, gl.FLOAT, false, 0, 0);
+
+    // Enable the assignment to a_Position variable
+    gl.enableVertexAttribArray(a_PointSize);
+
+    return n;
 }
-
-function init(radius) 
-{
-  var width = (radius * 2) + 50;
-  var height = (radius * 2) + 50;
-  var numNodes=10;
-  for (var i = 0; i < numNodes; i++) 
-  {
-    angle = (i / (numNodes / 2)) * Math.PI;
-    circles.push(Circle((radius * Math.cos(angle)) + (width / 2)+275, (radius * Math.sin(angle)) + (width / 2)+275, 20));
-    ctx.fill(circles[i], "nonzero");
-    ctx.stroke(circles[i], "nonzero");
-  }
-}
-
-function clickHandler(e) //e is where my mouse click at
-{
-  var r = canvas.getBoundingClientRect(), //getting the position of the element
-      x = e.clientX - r.left, //rasa cam x and y ni position where i click kat mana
-      y = e.clientY - r.top,
-      i;
-
-  for (i = circles.length - 1; i >= 0; --i) 
-  {
-    console.log(i);
-
-    if (ctx.isPointInPath(circles[i], x, y, 'nonzero'))   //parameeters are(path, x axis, y axis, fillrule(check if it is inside))
-      circles.splice(i, 1); //meaning at position i, remove 1 bacteria
-    
-  }
-
-  ctx.clearRect(0, 0, canvas.width, canvas.height); //take sure why i have to put clearRect even after having splice. and im pretty sure this is what makes my circle dissapear as well
-  for (i = 0; i < circles.length; i++) 
-  {
-    ctx.fill(circles[i], "nonzero")
-    ctx.stroke(circles[i], "nonzero");
-  }
-}
-
-var radius = 200;
-drawCircle(radius);
-
-//calling the bacteria
-init(radius);
-canvas.addEventListener('click', clickHandler, false);
