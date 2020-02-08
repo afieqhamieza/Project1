@@ -112,7 +112,8 @@ function bacteriasCoord() {
     bacterias.push(0, 0);  //coord of the disk
 
     for (var i = 1; i < numNodes; i++) {
-        angle = (i / (numNodes / 2)) * Math.PI;
+        angle = (Math.floor(Math.random() * 5.66 ) + 0.56);
+        console.log(angle);     //just to check the angles. will delete later
         bacterias.push((radius * Math.cos(angle)), (radius * Math.sin(angle)));
     }
 
