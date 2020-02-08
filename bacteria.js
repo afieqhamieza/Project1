@@ -56,11 +56,12 @@ function main() {
 }
 
 function initVertexBuffer(gl) {
-    var vertices = new Float32Array([0.0, 0.0, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5]);    // point positions
-    var sizes = new Float32Array([1010.0, 30.0, 30.0, 30.0, 30.0]); // Point sizes
+    // bacteria();
+    var vertices = new Float32Array(bacteriasCoord());    // point positions
+    var sizes = new Float32Array([1010.0, 35.0, 35.0, 35.0, 35.0, 35.0, 35.0, 35.0, 35.0, 35.0, 35.0]); // Point sizes
 
     // The number of vertices
-    var n = 5;
+    var n = 11;
 
     // Create two buffer objects: one for position, one for size
     var vertexBuffer = gl.createBuffer();
@@ -102,3 +103,19 @@ function initVertexBuffer(gl) {
 
     return n;
 }
+
+function bacteriasCoord() {
+    var bacterias = []; //array to locate all the bacteria coordinates
+    var radius = 0.6;   //radius of the disk
+    var numNodes = 11;  //num of bacterias + disk
+
+    bacterias.push(0, 0);  //coord of the disk
+
+    for (var i = 1; i < numNodes; i++) {
+        angle = (i / (numNodes / 2)) * Math.PI;
+        bacterias.push((radius * Math.cos(angle)), (radius * Math.sin(angle)));
+    }
+
+    return bacterias;
+}
+
