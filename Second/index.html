@@ -1,1 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>Project: Infection</title>
+        <link rel="stylesheet" type="text/css" href="theme.css">
+        <script src="game.js"> </script>
 
+    </head>
+    <body onload="main()">
+        <div class="container">
+            <canvas id="gameSurface" width="600" height="600">
+                use browser that supports canvas
+            </canvas>
+            <canvas id="particles" width="600" height="600"></canvas>
+            <canvas id="text" width="600" height="600"></canvas>      
+        </div>
+        <div>
+            Click to draw circle
+            <button onclick="test()">Click</button>
+        </div>
+    </body>
+</html>
