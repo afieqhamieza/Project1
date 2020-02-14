@@ -4,7 +4,10 @@ var fColor
 
 
 function test(){
-    draw_circle(0,0,0.8,[0.05, 0.1, 0.05, 0.5]);
+    //draw_circle(0,0,0.8,[0.05, 0.1, 0.05, 0.5]);
+
+    a = new Circle(0,0,0.8,[0.05, 0.1, 0.05, 0.5]);
+    a.draw();
 }
 
 

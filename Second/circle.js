@@ -20,7 +20,7 @@ class Circle{
         this.y = y;
     }
 
-    setRadius(){
+    setRadius(r){
         this.r = r;
     }
 
@@ -30,14 +30,14 @@ class Circle{
 
 		// Prepare vertices
 		for (let i = 1; i <= 360; i++) {
-			var y1 = r * Math.sin(i)+y;
-			var x1 = r * Math.cos(i)+x;
+			var y1 = this.r * Math.sin(i)+this.y;
+			var x1 = this.r * Math.cos(i)+this.x;
 
-			var y2 = r * Math.sin(i+1)+y;
-			var x2 = r * Math.cos(i+1)+x;
+			var y2 = this.r * Math.sin(i+1)+this.y;
+			var x2 = this.r * Math.cos(i+1)+this.x;
 
-			vertices.push(x);
-			vertices.push(y);
+			vertices.push(this.x);
+			vertices.push(this.y);
 			vertices.push(0);
 
 			vertices.push(x1);
@@ -53,7 +53,7 @@ class Circle{
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
 
 		// Pass color data to uniform fColor
-		gl.uniform4f(fColor, color[0], color[1], color[2], color[3]);
+		gl.uniform4f(fColor, this.color[0], this.color[1], this.color[2], this.color[3]);
 
 		// Drawing triangles
 		gl.clearColor(0, 1, 0, 0.9);
