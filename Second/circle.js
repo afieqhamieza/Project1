@@ -5,7 +5,10 @@ class Circle{
         this.x = x;
         this.y = y;
         this.r = r;
-        this.color = color;
+	    
+	for(i = 0, i<4, i++)
+		this.color[i] = color[i];
+        
     }
 
     setColor(r, g, b, a){
