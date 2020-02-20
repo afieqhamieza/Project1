@@ -1,14 +1,53 @@
 var canvas
 var gl
 var fColor
+var vertices;
 
 
-function test() {
-    draw_circle(0,0,0.8,[0.05, 0.1, 0.05, 0.5]);
 
-    a = new Circle(0, 0, 0.8, [0.05, 0.1, 0.05, 0.5]);
+function test() 
+{
+    /*
+    a = new Bact(0, 0, 0.1, [0, 0, 1, 0.5]);
     a.draw();
+
+    b = new Bact(0.5, 0.5, 0.1, [0, 1, 1, 0.5]);
+    b.draw();
+
+    c = new Bact(0.5, -0.5, 0.1, [0, 1, 1, 0.5]);
+    c.draw();
+
+    d = new Bact(-0.5, -0.5, 0.1, [1, 0, 0, 0.5]);
+    d.draw();
+
+    d = new Bact(-0.5, 0.5, 0.1, [1, 1, 0, 0.5]);
+    d.draw();
+    */
+
+    //draw_circle(0, 0, 0.2, [1, 0, 0, 0.5]);
+    //draw_circle(0, 0, 0.8, [0.05, 0.1, 0.05, 0.5]);
+
+    //*
+    colorArr = [[0, 0, 1, 0.5],[0, 1, 1, 0.5],[1, 0, 0, 0.5],[1, 1, 0, 0.5],[1, 0, 0, 0.5]]
+    xArr = [0,0.5,0.5,-0.5,-0.5]
+    yArr = [0,0.5,-0.5,-0.5,0.5]
+    bactArr = []
+
+    for (let i = 0; i < 5; i++) {
+        bactArr.push(new Bact(xArr[i], yArr[i], 0.1, colorArr[i]))        
+        bactArr[i].draw();
+    }
+
+    // Define disk position and colour
+    disk = new Disk(1, 0, 0.8, [1, 0.1, 0.05, 0.5]);
+
+    // Use default disk position and colour
+    disk = new Disk();
+    disk.draw();
+    //*/
 }
+
+
 
 
 function main() {
@@ -92,6 +131,9 @@ function main() {
     gl.vertexAttribPointer(coord, 3, gl.FLOAT, false, 0, 0);
     gl.enableVertexAttribArray(coord);
     //*/
+
+    // For storing the produces vertices
+	vertices = [];
 }
 
 function draw_circle(x, y, r, color) {
