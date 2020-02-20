@@ -39,4 +39,5 @@ class Bact extends Circle
     // Draw the triangle 360*3, 3 layers of vertices (disk)
     gl.drawArrays(gl.TRIANGLES, 0, 360 * 3);
     }
+    
 }

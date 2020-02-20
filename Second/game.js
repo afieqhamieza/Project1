@@ -133,7 +133,9 @@ function main() {
     //*/
 
     // For storing the produces vertices
-	vertices = [];
+    vertices = [];
+    canvas.onmousedown = function(e, canvas){console.log(e.clientX,"  ",e.clientY);};
+
 }
 
 function draw_circle(x, y, r, color) {
