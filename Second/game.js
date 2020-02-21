@@ -5,46 +5,42 @@ var vertices;
 
 
 
-function test() 
-{
-    /*
-    a = new Bact(0, 0, 0.1, [0, 0, 1, 0.5]);
-    a.draw();
-
-    b = new Bact(0.5, 0.5, 0.1, [0, 1, 1, 0.5]);
-    b.draw();
-
-    c = new Bact(0.5, -0.5, 0.1, [0, 1, 1, 0.5]);
-    c.draw();
-
-    d = new Bact(-0.5, -0.5, 0.1, [1, 0, 0, 0.5]);
-    d.draw();
-
-    d = new Bact(-0.5, 0.5, 0.1, [1, 1, 0, 0.5]);
-    d.draw();
-    */
-
-    //draw_circle(0, 0, 0.2, [1, 0, 0, 0.5]);
-    //draw_circle(0, 0, 0.8, [0.05, 0.1, 0.05, 0.5]);
-
-    //*
-    colorArr = [[0, 0, 1, 0.5],[0, 1, 1, 0.5],[1, 0, 0, 0.5],[1, 1, 0, 0.5],[1, 0, 0, 0.5]]
-    xArr = [0,0.5,0.5,-0.5,-0.5]
-    yArr = [0,0.5,-0.5,-0.5,0.5]
-    bactArr = []
-
-    for (let i = 0; i < 5; i++) {
-        bactArr.push(new Bact(xArr[i], yArr[i], 0.1, colorArr[i]))        
-        bactArr[i].draw();
-    }
-
+function test() {
     // Define disk position and colour
-    disk = new Disk(1, 0, 0.8, [1, 0.1, 0.05, 0.5]);
+    // disk = new Disk(1, 0, 0.8, [1, 0.1, 0.05, 0.5]);
 
     // Use default disk position and colour
     disk = new Disk();
+
+    var bactArr = [];
+    var count = 1;
+
+    bactArr.push(new Bact(disk));
+
+    // Creating bact array
+    for (let i = 0; i < 5; ) {
+        var collFlag = false;
+        tempBact = new Bact(disk);
+
+        // check if coll
+        for (let j = 0; j <= i; j++) {
+            if (collision(tempBact, bactArr[j])) {
+                collFlag = true;
+                break;
+            }
+        }
+
+        if (collFlag == false) {
+            bactArr.push(tempBact);
+            i++;
+        }
+    }
+
+    for (let i = 0; i < bactArr.length; i++) {
+        bactArr[i].draw();
+    }
+
     disk.draw();
-    //*/
 }
 
 
@@ -133,11 +129,10 @@ function main() {
     //*/
 
     // For storing the produces vertices
-	vertices = [];
+    vertices = [];
 }
 
 function draw_circle(x, y, r, color) {
-
     // For storing the produces vertices
     var vertices = [];
 
@@ -175,13 +170,25 @@ function draw_circle(x, y, r, color) {
 }
 
 function collision(bact1, bact2) {
-    var xDist = bact2.x - bact1.x;
-    var yDist = bact2.y - bact1.y;
-    var rad = bact2.r - bact1.r;
+    var xDist = bact2.getX() - bact1.getX();
+    var yDist = bact2.getY() - bact1.getY();
+    // var rad = bact1.getRadius() + bact2.getRadius();    //the problem is here. 
 
     var totalDist = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
 
-    if (totalDist - rad < 0) {
+    if ((totalDist - 0.16) < 0) {
+        return true;
+    }
+
+    return false;
+}
+
+function colliding(x1, y1, r1, x2, y2, r2) {
+    var xDist = x2 - x1;
+    var yDist = y2 - y1;
+    var totDist = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+
+    if (totDist - (r1 + r2) < 0) {
         return true;
     }
 

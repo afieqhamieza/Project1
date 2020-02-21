@@ -6,12 +6,7 @@ class Circle
         this.x = x;
         this.y = y;
         this.r = r;
-	    
-	//for(i = 0, i<4, i++)
-		//this.color[i] = color[i];
-
 		this.color = color;
-        
     }
 
     setColor(r, g, b, a){
@@ -28,5 +23,21 @@ class Circle
 
     setRadius(r){
         this.r = r;
+    }
+
+    getX(){
+        return this.x;
+    }
+
+    getY(){
+        return this.y;
+    }
+
+    getRadius(){
+        return this.r;
+    }
+
+    getColor(){
+        return this.color;
     }
 }
