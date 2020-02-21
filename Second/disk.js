@@ -11,8 +11,11 @@ class Disk extends Circle
   }
 
   // Moved from circle class
-  draw()
+  draw(_gl,_fColor)
   {
+      this.gl = _gl;
+      this.fColor = _fColor;
+
     //
     // For storing the produces vertices
     var vertices = [];
@@ -40,14 +43,14 @@ class Disk extends Circle
     }
 
     // Pass the vertex data to the buffer
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(vertices), gl.STATIC_DRAW);
+    this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(vertices), this.gl.STATIC_DRAW);
 
     // Pass color data to uniform fColor
-    gl.uniform4f(fColor, this.color[0], this.color[1], this.color[2], this.color[3]);
+    this.gl.uniform4f(this.fColor, this.color[0], this.color[1], this.color[2], this.color[3]);
 
     // Drawing triangles
-    gl.clearColor(0, 1, 0, 0.9);
+    this.gl.clearColor(0, 1, 0, 0.9);
     // Draw the triangle 360*3, 3 layers of vertices (disk)
-    gl.drawArrays(gl.TRIANGLES, 0, 360 * 3);
+    this.gl.drawArrays(this.gl.TRIANGLES, 0, 360 * 3);
   }
 }
