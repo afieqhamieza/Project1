@@ -1,17 +1,13 @@
 class Game2D
 {
-
     constructor()
     {
-        //this.fColor = []
-
         //Creating a WebGL Context Canvas
         this.canvas = document.getElementById('gameSurface');
         this.gl = this.canvas.getContext('webgl');
-    
-        /* 
-        //-----------------------------------------------------
-        // Implemented Yet
+
+        /*-----------------------------------------------------
+        // Not Implemented Yet
         //-----------------------------------------------------
         // Creating a 2D Canvas for displaying text
         this.textCanvas = document.getElementById('text');
@@ -24,6 +20,8 @@ class Game2D
         // Set font for text Canvas
         this.ctx.font = "20px Verdana";
         this.ctx.textAlign = "center";
+
+        //-----------------------------------------------------
         //*/
     
         // Vertex and fragement shader source
@@ -90,12 +88,45 @@ class Game2D
         this.gl.enableVertexAttribArray(coord);
         //*/
     
-    
     }
-
-    draw_circle(_x, _y, _r, _color) 
+    //-----------------------------------------------------
+    // Method: start() 
+    // Descritption: Start the game
+    //-----------------------------------------------------
+    start()
     {
+        //-----------------------------------------------------
+        // Draw bacteria (Hard coded)
+        // To be replaced with Fie's code
+        //-----------------------------------------------------
 
+        // Inital bacteria values
+        var colorArr = [[0, 0, 1, 0.5],[0, 1, 1, 0.5],[1, 0, 0, 0.5],[1, 1, 0, 0.5],[1, 0, 0, 0.5]]
+        var xArr = [0,0.5,0.5,-0.5,-0.5]
+        var yArr = [0,0.5,-0.5,-0.5,0.5]
+        
+        // Create and draw bacteria array 
+        this.bactArr = []
+        for (let i = 0; i < 5; i++) {
+            this.bactArr.push(new Bact(xArr[i], yArr[i], 0.1, colorArr[i]))        
+            this.bactArr[i].draw(this.gl,this.fColor);
+        }
+        
+        // Create disk object and set position and colour
+        //disk = new Disk(1, 0, 0.8, [1, 0.1, 0.05, 0.5]);
+    
+        // Create disk object and use default disk position and colour
+        this.disk = new Disk();
+
+        // Draw disk
+        this.disk.draw(this.gl,this.fColor);
+
+        //-----------------------------------------------------
+    } // End start()
+
+    // Test Method for drawing circles
+    drawCircle(_x, _y, _r, _color) 
+    {
         // For storing the produces vertices
         var vertices = [];
     
