@@ -45,7 +45,7 @@ class Bact extends Circle
     update()
     {   if(this.r < 0.5)
         {
-            this.r =+ 0.01;
+            this.r = this.r + 0.001;
             this.draw();
         }
 
