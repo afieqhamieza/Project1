@@ -2,18 +2,18 @@ class Bact extends Circle
 {
     constructor(_disk)
     {
-        var angle = (Math.floor(Math.random() * 5.56 + 0.56));
+        var angle = Math.random()*Math.PI*2;
         var x = _disk.r * Math.cos(angle);
         var y = _disk.r * Math.sin(angle);
 
-        var color = [Math.random() * (0.65),Math.random() * (0.65),Math.random() * (0.65),0.75];
+        var color = [Math.random() * (0.65),Math.random() * (0.65),Math.random() * (0.65),0.75];//used to get random color of bacteria
 
         super(x,y, 0.1, color);
 
     }
     
     // Moved from circle class
-    draw(_gl,_fColor)
+    draw(_gl,_fColor)//draws the cicle with specific colour
     {
         this.gl = _gl;
         this.fColor = _fColor;

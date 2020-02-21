@@ -13,23 +13,11 @@ function startGame()
 function collision(bact1, bact2) {
     var xDist = bact2.getX() - bact1.getX();
     var yDist = bact2.getY() - bact1.getY();
-    // var rad = bact1.getRadius() + bact2.getRadius();    //the problem is here. 
+    var rad = bact1.getRadius() + bact2.getRadius();  
 
     var totalDist = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
 
-    if ((totalDist - 0.16) < 0) {
-        return true;
-    }
-
-    return false;
-}
-
-function colliding(x1, y1, r1, x2, y2, r2) {
-    var xDist = x2 - x1;
-    var yDist = y2 - y1;
-    var totDist = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
-
-    if (totDist - (r1 + r2) < 0) {
+    if ((totalDist - rad) < 0) {
         return true;
     }
 
