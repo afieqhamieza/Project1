@@ -1,9 +1,9 @@
 var canvas
 var gl
 var fColor
-var vertices;
+//var vertices;
 
-
+var bactArr = []
 
 function test() {
     // Define disk position and colour
@@ -39,12 +39,13 @@ function test() {
     for (let i = 0; i < bactArr.length; i++) {
         bactArr[i].draw();
     }
+    
+
 
     disk.draw();
+    
+    //*/
 }
-
-
-
 
 function main() {
     //Creating a WebGL Context Canvas
@@ -130,6 +131,8 @@ function main() {
 
     // For storing the produces vertices
     vertices = [];
+    canvas.onmousedown = function(e, canvas){console.log(e.clientX,"  ",e.clientY);};
+
 }
 
 function draw_circle(x, y, r, color) {
@@ -193,4 +196,55 @@ function colliding(x1, y1, r1, x2, y2, r2) {
     }
 
     return false;
+}
+
+var g_updateCallbackarray = []
+var g_frameCount = 0;
+var g_updateEventListenerEnabled = false
+
+function toggleUpdateEventListener()
+{
+    if (g_updateEventListenerEnabled)
+    {
+        g_updateEventListenerEnabled = false;
+    }
+    else
+    {
+        g_updateEventListenerEnabled = true;
+        requestAnimationFrame(updateEventHndlr);
+    }
+
+    //console.log("updateEventListener " , g_updateEventListenerEnabled)
+}
+/*
+function updateEventListener()
+{
+    if (g_updateEventListenerEnabled) requestAnimationFrame(updateEventHndlr);
+}
+//*/
+
+function addUpdateCallback(_callback) 
+{
+    g_updateCallbackarray.push(_callback);
+}
+
+function removeUpdateCallback(_callback) 
+{
+    
+}
+
+function updateEventHndlr()
+{
+    // Increament Frame Count 
+    //g_frameCount++;
+
+    //console.log(g_frameCount);
+
+    bactArr.forEach(element => {
+        element.update()
+    });
+
+    if (g_updateEventListenerEnabled) requestAnimationFrame(updateEventHndlr);
+
+    //updateEventListener();
 }

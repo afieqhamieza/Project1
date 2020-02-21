@@ -1,14 +1,14 @@
 class Bact extends Circle {
-
     constructor(disk) {
-        
-        var angle = (Math.floor(Math.random() * 5.66 ) + 0.56);
+
+        var angle = (Math.floor(Math.random() * 5.66) + 0.56);
         var x = disk.r * Math.cos(angle);
         var y = disk.r * Math.sin(angle);
         var color = [Math.random() * (0.65), Math.random() * (0.65), Math.random() * (0.65), 0.75];
 
         super(x, y, 0.08, color);
     }
+
 
     // Moved from circle class
     draw() {
@@ -46,6 +46,14 @@ class Bact extends Circle {
         gl.clearColor(0, 1, 0, 0.9);
         // Draw the triangle 360*3, 3 layers of vertices (disk)
         gl.drawArrays(gl.TRIANGLES, 0, 360 * 3);
+    }
+
+    update() {
+        if (this.r < 0.5) {
+            this.r = this.r + 0.001;
+            this.draw();
+        }
+
     }
 
 }
