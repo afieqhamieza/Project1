@@ -52,9 +52,8 @@ class Bact extends Circle
         this.gl.drawArrays(this.gl.TRIANGLES, 0, 360 * 3);
     }                                   
 
-    update()
-    {   if(this.r < 0.5)
-        {
+    update() {
+        if (this.r < 0.5) {
             this.r = this.r + 0.001;
             this.draw();
         }
