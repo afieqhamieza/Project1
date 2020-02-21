@@ -1,15 +1,41 @@
 let mainGameObj;
 function startGame()
 {
+    var canvas = document.getElementById('gameSurface');
+    var gl = canvas.getContext('webgl');
+
     // Create Game Object
-    mainGameObj = new Game();
+    mainGameObj = new Game(canvas,gl);
 
     // Start Gamess
     mainGameObj.start();
 
     window.requestAnimationFrame(g_frameEventHndlr);
 
-    document.getElementById('gameSurface').onmousedown = function(e, canvas){g_clickEventHndlr(e.clientX, e.clientY);};
+    canvas.onmousedown = function(e, canvas)
+    {  
+        //scaledX = convertRange(e.clientX,);
+        //scaledY = convertRange();
+        g_clickEventHndlr(e.clientX, e.clientY);
+    };
+}
+
+function convertRange( value, r1, r2 ) 
+{ 
+    return ( value - r1[ 0 ] ) * ( r2[ 1 ] - r2[ 0 ] ) / ( r1[ 1 ] - r1[ 0 ] ) + r2[ 0 ];
+}
+
+
+function scaleInRange(_in,_minRange,_maxRange)
+{
+    return (_in -_minRange)/(_maxRange-_maxRange);
+}
+
+function scaleMatrix(_inMatrix,_transform)
+{
+    var outMatrix = [];
+
+    return outMatrix;
 }
 
 function collision(bact1, bact2) {
@@ -29,9 +55,6 @@ var something = 0;
 
 function g_frameEventHndlr()
 {
-    //something = something + 1;
-    //console.log(something)
-
     mainGameObj.update();
 
     window.requestAnimationFrame(g_frameEventHndlr);
@@ -41,6 +64,8 @@ function g_clickEventHndlr(_x,_y)
 {
     //something = something + 1;
     console.log(_x,_y)
+
+    mainGameObj.destroy(0);
 
         /*
     for (let i= 0; i < 5; i++) 

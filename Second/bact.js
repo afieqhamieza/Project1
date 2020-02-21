@@ -7,6 +7,9 @@ class Bact extends Circle {
         var color = [Math.random() * (0.65), Math.random() * (0.65), Math.random() * (0.65), 0.75];
 
         super(x, y, 0.1, color);
+
+        this.maxRadius = 0.3;
+        this.growRate = 0.001
     }
 
     // Moved from circle class
@@ -57,10 +60,12 @@ class Bact extends Circle {
     update() {
         //console.log("Hello")
 
-        if (this.r < 0.5) {
-            this.r = this.r + 0.001;
-            this.draw(this.gl, this.fColor);
+        if (this.r < this.maxRadius) 
+        {
+            this.r = this.r + this.growRate;
         }
+
+        this.draw(this.gl, this.fColor);
         
         /*
         if (this.alive) {

@@ -1,5 +1,3 @@
-// I am still not sure how will the class get access with the gl buffers and shaders
-
 class Circle
 {
     constructor(x, y, r, color){

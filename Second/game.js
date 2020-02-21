@@ -3,11 +3,14 @@ class Game {
     // Method: constructor() 
     // Descritption: Init the game enviromend 
     //-----------------------------------------------------
-    constructor() {
+    constructor(_canvas,_gl) {
         this.bactArr = [];
         //Creating a WebGL Context Canvas
-        this.canvas = document.getElementById('gameSurface');
-        this.gl = this.canvas.getContext('webgl');
+        this.canvas = _canvas;
+        this.gl = _gl;
+
+        //this.canvas = document.getElementById('gameSurface');
+        //this.gl = this.canvas.getContext('webgl');
 
         // Vertex and fragement shader source
         var vertCode = [
