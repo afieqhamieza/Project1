@@ -57,13 +57,14 @@ class Bact extends Circle {
     }
 
     update() {
-        // console.log("Hello")
+        //console.log("Hello")
 
-        // if (this.r < 0.5) {
-        //     this.r = this.r + 0.001;
-        //     this.draw(this.gl, this.fColor);
-        // }
-
+        if (this.r < 0.5) {
+            this.r = this.r + 0.001;
+            this.draw(this.gl, this.fColor);
+        }
+        
+        /*
         if (this.alive) {
 
             //check threshold, destroy bacteria, decrease live
@@ -85,8 +86,24 @@ class Bact extends Circle {
 
 
         }
+        //*/
 
 
+    }
+
+    clicked(_x,_y)
+    {
+        var xDist = this.x - _x;
+        var yDist = this.y - _y;
+        //var rad = bact1.getRadius() + bact2.getRadius();  
+
+        var totalDist = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
+
+        if ((totalDist - this.r) < 0) {
+            return true;
+        }
+
+        return false;
     }
 
     //pass index because splice will need to use index

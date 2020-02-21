@@ -72,6 +72,8 @@ class Game
         // Point an attribute to the currently bound VBO and enable the attribute
         this.gl.vertexAttribPointer(coord, 3, this.gl.FLOAT, false, 0, 0);
         this.gl.enableVertexAttribArray(coord);
+
+
         //*/
 
         // Start Click Listenter
@@ -84,7 +86,7 @@ class Game
             console.log('someFuntion');
         }
 
-        
+        this.something = 0;
         
     
     }
@@ -131,13 +133,24 @@ class Game
 
         this.disk.draw(this.gl,this.fColor);
 
+
         //this.g_updateCallbackarray = []
         //this.g_frameCount = 0;
-        this.g_updateEventListenerEnabled = false
+        //this.g_updateEventListenerEnabled = false
 
         //-----------------------------------------------------
         //*/
     } // End start()
+
+    update()
+    {
+        this.bactArr.forEach(tempBact => {
+            tempBact.update()
+        });
+
+        this.disk.draw(this.gl, this.fColor);
+    }
+    
 
     // Test Method for drawing circles
     drawCircle(_x, _y, _r, _color) 

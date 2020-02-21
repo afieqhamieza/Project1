@@ -7,7 +7,9 @@ function startGame()
     // Start Gamess
     mainGameObj.start();
 
-    //this.canvas.onmousedown = function(e, canvas){g_clickEventHndlr(e.clientX, e.clientY);};
+    window.requestAnimationFrame(g_frameEventHndlr);
+
+    document.getElementById('gameSurface').onmousedown = function(e, canvas){g_clickEventHndlr(e.clientX, e.clientY);};
 }
 
 function collision(bact1, bact2) {
@@ -22,6 +24,43 @@ function collision(bact1, bact2) {
     }
 
     return false;
+}
+var something = 0;
+
+function g_frameEventHndlr()
+{
+    //something = something + 1;
+    //console.log(something)
+
+    mainGameObj.update();
+
+    window.requestAnimationFrame(g_frameEventHndlr);
+}
+
+function g_clickEventHndlr(_x,_y)
+{
+    //something = something + 1;
+    console.log(_x,_y)
+
+        /*
+    for (let i= 0; i < 5; i++) 
+    {
+        if(mainGameObj.bactArr[i].clicked(_x,_y) == true)
+        {
+            console.log(i, "was clicked");
+        }
+        else
+        {
+            console.log(i, "was not clicked");
+        }
+        
+        //const element = array[index];  
+    }
+    //*/
+
+    //mainGameObj.update();
+
+   //window.requestAnimationFrame(g_frameEventHndlr);
 }
 /*
 document.getElementById("gameSurface").addEventListener("mousedown", mouseDown);
