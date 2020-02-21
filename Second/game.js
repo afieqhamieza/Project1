@@ -85,12 +85,12 @@ class Game
         // Use default disk position and colour
         this.disk = new Disk();
         
-        this.bactArr = [];
+        this.bactArr = [];//an array storing all the bacteria
         
         
         var count = 1;
         
-        this.bactArr.push(new Bact(this.disk));
+        this.bactArr.push(new Bact(this.disk));//takes one bacteria each time from the array
         //*
 
         // Creating bact array
