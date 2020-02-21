@@ -1,9 +1,6 @@
 var canvas
 var gl
 var fColor
-//var vertices;
-
-var bactArr = []
 
 function test() {
     // Define disk position and colour
@@ -13,12 +10,11 @@ function test() {
     disk = new Disk();
 
     var bactArr = [];
-    var count = 1;
 
     bactArr.push(new Bact(disk));
 
     // Creating bact array
-    for (let i = 0; i < 5; ) {
+    for (let i = 0; i < 10; ) {
         var collFlag = false;
         tempBact = new Bact(disk);
 
@@ -40,11 +36,7 @@ function test() {
         bactArr[i].draw();
     }
     
-
-
     disk.draw();
-    
-    //*/
 }
 
 function main() {
