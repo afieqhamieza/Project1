@@ -1,9 +1,9 @@
 var canvas
 var gl
 var fColor
-var vertices;
+//var vertices;
 
-
+var bactArr = []
 
 function test() 
 {
@@ -31,12 +31,14 @@ function test()
     colorArr = [[0, 0, 1, 0.5],[0, 1, 1, 0.5],[1, 0, 0, 0.5],[1, 1, 0, 0.5],[1, 0, 0, 0.5]]
     xArr = [0,0.5,0.5,-0.5,-0.5]
     yArr = [0,0.5,-0.5,-0.5,0.5]
-    bactArr = []
+    
 
     for (let i = 0; i < 5; i++) {
         bactArr.push(new Bact(xArr[i], yArr[i], 0.1, colorArr[i]))        
         bactArr[i].draw();
     }
+    
+
 
     // Define disk position and colour
     disk = new Disk(1, 0, 0.8, [1, 0.1, 0.05, 0.5]);
@@ -44,11 +46,9 @@ function test()
     // Use default disk position and colour
     disk = new Disk();
     disk.draw();
+    
     //*/
 }
-
-
-
 
 function main() {
     //Creating a WebGL Context Canvas
@@ -133,7 +133,8 @@ function main() {
     //*/
 
     // For storing the produces vertices
-	vertices = [];
+    vertices = [];
+    
 }
 
 function draw_circle(x, y, r, color) {
@@ -186,4 +187,55 @@ function collision(bact1, bact2) {
     }
 
     return false;
+}
+
+var g_updateCallbackarray = []
+var g_frameCount = 0;
+var g_updateEventListenerEnabled = false
+
+function toggleUpdateEventListener()
+{
+    if (g_updateEventListenerEnabled)
+    {
+        g_updateEventListenerEnabled = false;
+    }
+    else
+    {
+        g_updateEventListenerEnabled = true;
+        requestAnimationFrame(updateEventHndlr);
+    }
+
+    //console.log("updateEventListener " , g_updateEventListenerEnabled)
+}
+/*
+function updateEventListener()
+{
+    if (g_updateEventListenerEnabled) requestAnimationFrame(updateEventHndlr);
+}
+//*/
+
+function addUpdateCallback(_callback) 
+{
+    g_updateCallbackarray.push(_callback);
+}
+
+function removeUpdateCallback(_callback) 
+{
+    
+}
+
+function updateEventHndlr()
+{
+    // Increament Frame Count 
+    //g_frameCount++;
+
+    //console.log(g_frameCount);
+
+    bactArr.forEach(element => {
+        element.update()
+    });
+
+    if (g_updateEventListenerEnabled) requestAnimationFrame(updateEventHndlr);
+
+    //updateEventListener();
 }

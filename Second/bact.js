@@ -1,5 +1,7 @@
 class Bact extends Circle
 {
+
+    
     // Moved from circle class
     draw()
     {
@@ -39,4 +41,14 @@ class Bact extends Circle
     // Draw the triangle 360*3, 3 layers of vertices (disk)
     gl.drawArrays(gl.TRIANGLES, 0, 360 * 3);
     }
+
+    update()
+    {   if(this.r < 0.5)
+        {
+            this.r =+ 0.01;
+            this.draw();
+        }
+
+    }
+
 }
