@@ -7,7 +7,6 @@ class Bact extends Circle {
         var color = [Math.random() * (0.65), Math.random() * (0.65), Math.random() * (0.65), 0.75];
 
         super(x, y, 0.1, color);
-
     }
 
     // Moved from circle class
@@ -15,8 +14,9 @@ class Bact extends Circle {
     {
         this.gl = _gl;
         this.fColor = _fColor;
+        this.alive = true;
+        this.consuming = [];
 
-        //
         // For storing the produces vertices
         var vertices = [];
 
@@ -41,9 +41,6 @@ class Bact extends Circle {
             vertices.push(0);
         }
 
-        this.alive = true;
-        this.consuming = [];
-
         // Pass the vertex data to the buffer
         this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(vertices), this.gl.STATIC_DRAW);
 
@@ -52,6 +49,7 @@ class Bact extends Circle {
 
         // Drawing triangles
         this.gl.clearColor(0, 1, 0, 0.9);
+
         // Draw the triangle 360*3, 3 layers of vertices (disk)
         this.gl.drawArrays(this.gl.TRIANGLES, 0, 360 * 3);
     }
@@ -78,13 +76,8 @@ class Bact extends Circle {
 
                 //check collision
                 //if there is collision, larger one consume it
-
+                
             }
-
-
-
-
-
         }
         //*/
 
@@ -105,32 +98,4 @@ class Bact extends Circle {
 
         return false;
     }
-
-    //pass index because splice will need to use index
-    destroy(index) {
-
-        this.r = 0;
-        this.x = 0;
-        this.y = 0;
-        this.alive = false;
-
-        // Destroy any other bacteria being consumed
-        for (i in this.consuming) {
-            this.consuming[i].destroy(bacArr.indexOf(this.consuming[i]));
-        }
-
-        // Remove destroyed bacteria from any other Bacteria.consuming arrays
-        for (i in bacArr) {
-            if (bacArr[i].consuming.indexOf(this) != -1) {
-                bacArr[i].consuming.splice(bacArr[i].consuming.indexOf(this), 1);
-            }
-        }
-
-        // Reset array for this bacteria
-        this.consuming = [];
-
-        // Remove destroyed bacteria from the bacteria array
-        bacArr.splice(index, 1);
-    }
-
 }
