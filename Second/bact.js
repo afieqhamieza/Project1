@@ -1,13 +1,16 @@
 class Bact extends Circle
 {
-    /*
-    constructor(_gl,_fColor)
+    constructor(_disk)
     {
-        this.gl = _gl;
-        this.fColor = _fColor;
-    }
-    //*/
+        var angle = (Math.floor(Math.random() * 5.56 + 0.56));
+        var x = _disk.r * Math.cos(angle);
+        var y = _disk.r * Math.sin(angle);
 
+        var color = [Math.random() * (0.65),Math.random() * (0.65),Math.random() * (0.65),0.75];
+
+        super(x,y, 0.1, color);
+
+    }
     
     // Moved from circle class
     draw(_gl,_fColor)
@@ -53,11 +56,14 @@ class Bact extends Circle
     }                                   
 
     update() {
+        console.log("Hello")
+        /*
         if (this.r < 0.5) {
             this.r = this.r + 0.001;
-            this.draw();
+            this.draw(this.gl,this.fColor);
         }
-
+        //*/
+        
     }
 
 }
