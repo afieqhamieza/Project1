@@ -6,6 +6,8 @@ function startGame()
 
     // Start Gamess
     mainGameObj.start();
+
+    //this.canvas.onmousedown = function(e, canvas){g_clickEventHndlr(e.clientX, e.clientY);};
 }
 
 function collision(bact1, bact2) {
@@ -21,6 +23,29 @@ function collision(bact1, bact2) {
 
     return false;
 }
+/*
+document.getElementById("gameSurface").addEventListener("mousedown", mouseDown);
+document.getElementById("gameSurface").addEventListener("mouseup", mouseUp);
+
+function mouseDown() {
+  document.getElementById("demo").innerHTML = "The mouse button is held down.";
+}
+
+function mouseUp() {
+  document.getElementById("demo").innerHTML = "You released the mouse button.";
+}
+//*/
+// -------------------------------------------------------
+// Click
+//---------------------------------------------------------
+/*
+
+g_clickEventHndlr(_x,_y)
+{
+    console.log(_x,_y);
+}
+//*/
+
 
 // -------------------------------------------------------
 // Grow

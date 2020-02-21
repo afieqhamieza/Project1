@@ -11,7 +11,8 @@ class Bact extends Circle {
     }
 
     // Moved from circle class
-    draw(_gl, _fColor) {
+    draw(_gl,_fColor)//draws the cicle with specific colour
+    {
         this.gl = _gl;
         this.fColor = _fColor;
 

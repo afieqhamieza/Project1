@@ -73,8 +73,23 @@ class Game
         this.gl.vertexAttribPointer(coord, 3, this.gl.FLOAT, false, 0, 0);
         this.gl.enableVertexAttribArray(coord);
         //*/
+
+        // Start Click Listenter
+        //this.canvas.onmousedown = function(e, canvas){console.log(e.clientX, e.clientY);};
+
+        //this.canvas.onmousedown = function(e, canvas){this.someFuntion};
+        //document.getElementById("gameSurface").addEventListener("mousedown", mouseDown);
+        
+        function mouseDown() {
+            console.log('someFuntion');
+        }
+
+        
+        
     
     }
+
+   
     //-----------------------------------------------------
     // Method: start() 
     // Descritption: Start the game
@@ -161,6 +176,8 @@ class Game
         this.gl.clearColor(0, 1, 0, 0.9);
         // Draw the triangle 360*3, 3 layers of vertices (disk)
         this.gl.drawArrays(this.gl.TRIANGLES, 0, 360 * 3);
-    }
+    } // End draw
+
+  
 
 }
