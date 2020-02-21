@@ -2,7 +2,7 @@ class Bact extends Circle
 {
     constructor(_disk)
     {
-        var angle = (Math.floor(Math.random() * 5.56 + 0.56));
+        var angle = Math.random()*Math.PI*2;
         var x = _disk.r * Math.cos(angle);
         var y = _disk.r * Math.sin(angle);
 

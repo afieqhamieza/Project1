@@ -86,15 +86,12 @@ class Game
         this.disk = new Disk();
         
         this.bactArr = [];
-        
-        
-        var count = 1;
-        
+                
         this.bactArr.push(new Bact(this.disk));
         //*
 
         // Creating bact array
-        for (let i = 0; i < 5; ) {
+        for (let i = 0; i < 9; ) {
             var collFlag = false;
             var tempBact = new Bact(this.disk);
 
