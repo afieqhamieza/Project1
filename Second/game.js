@@ -87,11 +87,19 @@ class Game {
         //this.canvas.onmousedown = function(e, canvas){this.someFuntion};
         //document.getElementById("gameSurface").addEventListener("mousedown", mouseDown);
 
+        /*
         function mouseDown() {
             console.log('someFuntion');
         }
 
-        // this.something = 0;
+        this.something = 0;
+        */
+    
+
+
+    }
+    getBactArr(){
+        return this.bactArr;
     }
 
     //-----------------------------------------------------

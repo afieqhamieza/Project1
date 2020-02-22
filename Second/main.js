@@ -11,26 +11,21 @@ function startGame() {
 
     window.requestAnimationFrame(g_frameEventHndlr);
 
-    canvas.onmousedown = function (e, canvas) {
-        //scaledX = convertRange(e.clientX,);
-        //scaledY = convertRange();
-        g_clickEventHndlr(e.clientX, e.clientY);
+    canvas.onmousedown = function(e, _canvas)
+    {  
+
+        scaledY = scaleInRange(e.clientY,0,canvas.height,-1,1);
+        scaledX = scaleInRange((canvas.width-e.clientX),0,canvas.width,-1,1)
+
+        g_clickEventHndlr(scaledX,scaledY);
     };
 }
 
-function convertRange(value, r1, r2) {
-    return (value - r1[0]) * (r2[1] - r2[0]) / (r1[1] - r1[0]) + r2[0];
-}
+f
 
-
-function scaleInRange(_in, _minRange, _maxRange) {
-    return (_in - _minRange) / (_maxRange - _maxRange);
-}
-
-function scaleMatrix(_inMatrix, _transform) {
-    var outMatrix = [];
-
-    return outMatrix;
+function scaleInRange(_x,_minIn,_maxIn,_minOut,_maxOut)
+{
+   return Math.round((((_maxIn - _minIn)/(_maxOut - _minOut)) - _x)*(_maxOut - _minOut) / (_maxIn - _minIn)*100)/100
 }
 
 function collision(bact1, bact2) {
@@ -46,7 +41,10 @@ function collision(bact1, bact2) {
 
     return false;
 }
-var something = 0;
+
+//---------------------------------------------------------
+// Frame
+//---------------------------------------------------------
 
 function g_frameEventHndlr() {
     mainGameObj.update();
@@ -55,6 +53,7 @@ function g_frameEventHndlr() {
     window.requestAnimationFrame(g_frameEventHndlr);
 }
 
+<<<<<<< HEAD
 function g_clickEventHndlr(_x, _y) {
     if (!mainGameObj.win()) {
         mainGameObj.gainScore();
@@ -98,75 +97,21 @@ function mouseUp() {
 }
 //*/
 // -------------------------------------------------------
+=======
+//---------------------------------------------------------
+>>>>>>> edd14841db539f9d2afd47eb8c344eb1a5b6e85c
 // Click
 //---------------------------------------------------------
-/*
 
-g_clickEventHndlr(_x,_y)
+function g_clickEventHndlr(_x,_y)
 {
-    console.log(_x,_y);
-}
-//*/
-
-
-// -------------------------------------------------------
-// Grow
-//----------------------------------------------------------
-
-/*
-
-var g_updateCallbackarray = []
-var g_frameCount = 0;
-var g_updateEventListenerEnabled = false
-
-function toggleUpdateEventListener()
-{
-    if (g_updateEventListenerEnabled)
-    {
-        g_updateEventListenerEnabled = false;
+    var tempArr = mainGameObj.getBactArr()
+    for (let i= 0; i < tempArr.length; i++) 
+    { 
+        if(tempArr[i].clicked(_x,_y) == true)
+        {
+            mainGameObj.destroy(i)
+        }
+       
     }
-    else
-    {
-        g_updateEventListenerEnabled = true;
-        requestAnimationFrame(updateEventHndlr);
-    }
-
-    //console.log("updateEventListener " , g_updateEventListenerEnabled)
 }
-function updateEventListener()
-{
-    if (g_updateEventListenerEnabled) requestAnimationFrame(updateEventHndlr);
-}
-
-function addUpdateCallback(_callback)
-{
-    g_updateCallbackarray.push(_callback);
-}
-
-function removeUpdateCallback(_callback)
-{
-
-}
-
-function updateEventHndlr()
-{
-    // Increament Frame Count
-    //g_frameCount++;
-
-    //console.log(g_frameCount);
-    for (let index = 0; index < bactArr.length; index++) {
-        bactArr[index].update()
-
-    }
-
-
-    bactArr.forEach(element => {
-        element.update()
-    });
-
-    if (g_updateEventListenerEnabled) requestAnimationFrame(updateEventHndlr);
-
-    //updateEventListener();
-}
-
-//*/
