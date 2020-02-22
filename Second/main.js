@@ -21,8 +21,6 @@ function startGame() {
     };
 }
 
-f
-
 function scaleInRange(_x,_minIn,_maxIn,_minOut,_maxOut)
 {
    return Math.round((((_maxIn - _minIn)/(_maxOut - _minOut)) - _x)*(_maxOut - _minOut) / (_maxIn - _minIn)*100)/100
