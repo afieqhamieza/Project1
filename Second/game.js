@@ -3,7 +3,7 @@ class Game {
     // Method: constructor() 
     // Descritption: Init the game enviromend 
     //-----------------------------------------------------
-    constructor(_canvas,_gl) {
+    constructor(_canvas, _gl) {
         this.bactArr = [];
         //Creating a WebGL Context Canvas
         this.canvas = _canvas;
@@ -92,6 +92,8 @@ class Game {
         this.something = 0;
         */
     
+
+
     }
 
 
@@ -141,15 +143,45 @@ class Game {
         //-----------------------------------------------------
     } // End start()
 
-    update()
-    {
+    update() {
         this.bactArr.forEach(tempBact => {
             tempBact.update()
         });
 
         this.disk.draw(this.gl, this.fColor);
+
+        // --------------------checking for collision and collide
+        for (let i = 0; i < this.bactArr.length; i++) {
+            if (this.bactArr[i].alive) {
+                //check threshold, destroy bacteria
+                if (this.bactArr[i].getRadius() > 0.3) {
+                    this.destroy(i);
+                }
+                else {
+                    //check collision
+                    for (let j = 0; j < i; j++) {
+                        if (this.bactArr[i] != this.bactArr[j]) {
+                            if (collision(this.bactArr[i], this.bactArr[j])) {
+                                //if there is collision, larger one consume it
+                                if (this.bactArr[i].getRadius() >= this.bactArr[j].getRadius()) {
+                                    this.bactArr[i].setRadius(this.bactArr[i].getRadius() + 0.05);
+                                    this.destroy(j);
+                                    break;
+                                }
+                                else {
+                                    this.bactArr[j].setRadius(this.bactArr[j].getRadius() + 0.05);
+                                    this.destroy(i);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
     }
-    
+
 
     // Test Method for drawing circles
     drawCircle(_x, _y, _r, _color) {

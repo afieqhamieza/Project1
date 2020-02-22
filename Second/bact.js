@@ -9,7 +9,23 @@ class Bact extends Circle {
         super(x, y, 0.1, color);
 
         this.maxRadius = 0.3;
-        this.growRate = 0.001
+        this.growRate = 0.0006;
+    }
+
+    setMaxRadius(x){
+        this.maxRadius = x;
+    }
+
+    setGrowRate(x){
+        this.growRate = x;
+    }
+
+    getMaxRadius(){
+        return this.maxRadius;
+    }
+
+    getGrowRate(){
+        return this.growRate;
     }
 
     // Moved from circle class
