@@ -53,53 +53,7 @@ function g_frameEventHndlr() {
     window.requestAnimationFrame(g_frameEventHndlr);
 }
 
-<<<<<<< HEAD
-function g_clickEventHndlr(_x, _y) {
-    if (!mainGameObj.win()) {
-        mainGameObj.gainScore();
-        //something = something + 1;
-        console.log(_x, _y)
-
-        mainGameObj.destroy(0);
-
-        /*
-    for (let i= 0; i < 5; i++) 
-    {
-        if(mainGameObj.bactArr[i].clicked(_x,_y) == true)
-        {
-            console.log(i, "was clicked");
-        }
-        else
-        {
-            console.log(i, "was not clicked");
-        }
-        
-        //const element = array[index];  
-    }
-    //*/
-
-        //mainGameObj.update();
-
-        //window.requestAnimationFrame(g_frameEventHndlr);
-
-    }
-}
-/*
-document.getElementById("gameSurface").addEventListener("mousedown", mouseDown);
-document.getElementById("gameSurface").addEventListener("mouseup", mouseUp);
-
-function mouseDown() {
-  document.getElementById("demo").innerHTML = "The mouse button is held down.";
-}
-
-function mouseUp() {
-  document.getElementById("demo").innerHTML = "You released the mouse button.";
-}
-//*/
-// -------------------------------------------------------
-=======
 //---------------------------------------------------------
->>>>>>> edd14841db539f9d2afd47eb8c344eb1a5b6e85c
 // Click
 //---------------------------------------------------------
 
