@@ -34,7 +34,6 @@ class Bact extends Circle {
         this.gl = _gl;
         this.fColor = _fColor;
         this.alive = true;
-        this.consuming = [];
 
         // For storing the produces vertices
         var vertices = [];
@@ -74,35 +73,11 @@ class Bact extends Circle {
     }
 
     update() {
-        //console.log("Hello")
-
-        if (this.r < this.maxRadius) 
-        {
+        if (this.r < this.maxRadius) {
             this.r = this.r + this.growRate;
         }
 
         this.draw(this.gl, this.fColor);
-        
-        /*
-        if (this.alive) {
-
-            //check threshold, destroy bacteria, decrease live
-            if (this.r > 0.3) {
-                lives--;
-                this.destroy(bacArr.indexOf(this));
-            }
-            else {
-                //grow the bacteria
-                this.r += 0.0003;
-
-                //check collision
-                //if there is collision, larger one consume it
-                
-            }
-        }
-        //*/
-
-
     }
 
     clicked(_x,_y)

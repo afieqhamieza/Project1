@@ -1,38 +1,33 @@
 let mainGameObj;
-function startGame()
-{
+function startGame() {
     var canvas = document.getElementById('gameSurface');
     var gl = canvas.getContext('webgl');
 
     // Create Game Object
-    mainGameObj = new Game(canvas,gl);
+    mainGameObj = new Game(canvas, gl);
 
     // Start Gamess
     mainGameObj.start();
 
     window.requestAnimationFrame(g_frameEventHndlr);
 
-    canvas.onmousedown = function(e, canvas)
-    {  
+    canvas.onmousedown = function (e, canvas) {
         //scaledX = convertRange(e.clientX,);
         //scaledY = convertRange();
         g_clickEventHndlr(e.clientX, e.clientY);
     };
 }
 
-function convertRange( value, r1, r2 ) 
-{ 
-    return ( value - r1[ 0 ] ) * ( r2[ 1 ] - r2[ 0 ] ) / ( r1[ 1 ] - r1[ 0 ] ) + r2[ 0 ];
+function convertRange(value, r1, r2) {
+    return (value - r1[0]) * (r2[1] - r2[0]) / (r1[1] - r1[0]) + r2[0];
 }
 
 
-function scaleInRange(_in,_minRange,_maxRange)
-{
-    return (_in -_minRange)/(_maxRange-_maxRange);
+function scaleInRange(_in, _minRange, _maxRange) {
+    return (_in - _minRange) / (_maxRange - _maxRange);
 }
 
-function scaleMatrix(_inMatrix,_transform)
-{
+function scaleMatrix(_inMatrix, _transform) {
     var outMatrix = [];
 
     return outMatrix;
@@ -41,7 +36,7 @@ function scaleMatrix(_inMatrix,_transform)
 function collision(bact1, bact2) {
     var xDist = bact2.getX() - bact1.getX();
     var yDist = bact2.getY() - bact1.getY();
-    var rad = bact1.getRadius() + bact2.getRadius();  
+    var rad = bact1.getRadius() + bact2.getRadius();
 
     var totalDist = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
 
@@ -53,19 +48,19 @@ function collision(bact1, bact2) {
 }
 var something = 0;
 
-function g_frameEventHndlr()
-{
+function g_frameEventHndlr() {
     mainGameObj.update();
+
 
     window.requestAnimationFrame(g_frameEventHndlr);
 }
 
-function g_clickEventHndlr(_x,_y)
-{
-    //something = something + 1;
-    console.log(_x,_y)
+function g_clickEventHndlr(_x, _y) {
+    if (!mainGameObj.win()) {
+        //something = something + 1;
+        console.log(_x, _y)
 
-    mainGameObj.destroy(0);
+        mainGameObj.destroy(0);
 
         /*
     for (let i= 0; i < 5; i++) 
@@ -83,9 +78,11 @@ function g_clickEventHndlr(_x,_y)
     }
     //*/
 
-    //mainGameObj.update();
+        //mainGameObj.update();
 
-   //window.requestAnimationFrame(g_frameEventHndlr);
+        //window.requestAnimationFrame(g_frameEventHndlr);
+
+    }
 }
 /*
 document.getElementById("gameSurface").addEventListener("mousedown", mouseDown);
@@ -140,34 +137,34 @@ function updateEventListener()
     if (g_updateEventListenerEnabled) requestAnimationFrame(updateEventHndlr);
 }
 
-function addUpdateCallback(_callback) 
+function addUpdateCallback(_callback)
 {
     g_updateCallbackarray.push(_callback);
 }
 
-function removeUpdateCallback(_callback) 
+function removeUpdateCallback(_callback)
 {
-    
+
 }
 
 function updateEventHndlr()
 {
-    // Increament Frame Count 
+    // Increament Frame Count
     //g_frameCount++;
-    
+
     //console.log(g_frameCount);
     for (let index = 0; index < bactArr.length; index++) {
         bactArr[index].update()
-        
+
     }
 
-    
+
     bactArr.forEach(element => {
         element.update()
     });
-  
+
     if (g_updateEventListenerEnabled) requestAnimationFrame(updateEventHndlr);
-    
+
     //updateEventListener();
 }
 
