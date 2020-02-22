@@ -12,11 +12,25 @@ function startGame()
 
     window.requestAnimationFrame(g_frameEventHndlr);
 
+    
     canvas.onmousedown = function(e, canvas)
     {  
-        //scaledX = convertRange(e.clientX,);
+        //console.log(window.innerHeight,window.innerWidth);
+        var inRange = [-1,1]
+        var outRange = [window.innerHeight,window.innerWidth];
+        //console.log(documentElement.clientHeight,documentElement.clientWidths);
+        
+        scaledX = convertRange(e.clientX,inRange,outRange);
+        scaledY = convertRange(e.clientY,inRange,outRange);
+
+        scaledX = convertRange(e.clientX,inRange,outRange);
+        scaledY = convertRange(e.clientY,inRange,outRange);
+
+
         //scaledY = convertRange();
-        g_clickEventHndlr(e.clientX, e.clientY);
+        //g_clickEventHndlr(e.clientX, e.clientY);
+
+        console.log(scaledX,scaledY);
     };
 }
 
@@ -26,7 +40,7 @@ function convertRange( value, r1, r2 )
 }
 
 
-function scaleInRange(_in,_minRange,_maxRange)
+function scaleInRange(_x,_minDomain,_maxDomain,_minRange,_maxRange)
 {
     return (_in -_minRange)/(_maxRange-_maxRange);
 }
