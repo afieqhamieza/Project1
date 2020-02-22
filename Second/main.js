@@ -62,6 +62,7 @@ function g_clickEventHndlr(_x,_y)
     { 
         if(tempArr[i].clicked(_x,_y) == true)
         {
+            mainGameObj.gainScore();
             mainGameObj.destroy(i)
         }
        

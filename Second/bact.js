@@ -9,7 +9,7 @@ class Bact extends Circle {
         super(x, y, 0.1, color);
 
         this.maxRadius = 0.3;
-        this.growRate = 0.001;
+        this.growRate = 0.0005;
     }
 
     setMaxRadius(x){
@@ -33,7 +33,6 @@ class Bact extends Circle {
     {
         this.gl = _gl;
         this.fColor = _fColor;
-        this.alive = true;
 
         // For storing the produces vertices
         var vertices = [];

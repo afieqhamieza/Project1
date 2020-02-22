@@ -5,8 +5,9 @@ class Game {
     //-----------------------------------------------------
     constructor(_canvas, _gl) {
         this.bactArr = [];
-        this.lives = 3;
+        this.lives = 2;
         this.scores = 0;
+        this.gameRunning = true;
 
         //Creating a WebGL Context Canvas
         this.canvas = _canvas;
@@ -94,11 +95,11 @@ class Game {
 
         this.something = 0;
         */
-    
+
 
 
     }
-    getBactArr(){
+    getBactArr() {
         return this.bactArr;
     }
 
@@ -138,48 +139,31 @@ class Game {
 
         this.disk.draw(this.gl, this.fColor);
 
-    } 
+    }
 
     //-----------------------------------------------------
     // Method: update() 
     // Descritption: Update each of the bacteria
     //-----------------------------------------------------
     update() {
-        this.bactArr.forEach(tempBact => {
-            tempBact.update()
-        });
+        if (this.gameRunning) {
+            this.bactArr.forEach(tempBact => {
+                tempBact.update()
+            });
 
-        this.disk.draw(this.gl, this.fColor);
+            this.disk.draw(this.gl, this.fColor);
 
-        // --------------------checking for collision and collide
-        for (let i = 0; i < this.bactArr.length; i++) {
-            if (this.bactArr[i].alive) {
+
+            // --------------------checking for collision and collide
+            for (let i = 0; i < this.bactArr.length; i++) {
 
                 //check threshold, destroy bacteria
                 if (this.bactArr[i].getRadius() > 0.3) {
-                    if (!this.lose()) {
-                        this.loseScore();
-                        this.loseLive();
-                        this.destroy(i);
-
-                        // switch (this.lives) {
-                        //     case 3:
-                        //         document.getElementById("live").innerHTML = "Lives left: 3";
-                        //         break;
-
-                        //     case 2:
-                        //         document.getElementById("live").innerHTML = "Lives left: 2";
-                        //         break;
-
-                        //     case 1:
-                        //         document.getElementById("live").innerHTML = "Lives left: 1";
-                        //         break;
-
-                        //     default:
-                        //         document.getElementById("live").innerHTML = "Lives left: 0";
-                        //         break;
-                        // }
-                    }
+                    // if (!this.lose()) {
+                    this.loseScore();
+                    this.loseLive();
+                    this.destroy(i);
+                    // }
                 }
                 else {
                     //check collision
@@ -204,6 +188,14 @@ class Game {
                     }
                 }
             }
+
+            if (this.lose()) {
+                this.gameRunning = false;
+            }
+
+            if (this.win()) {
+                this.gameRunning = false;
+            }
         }
     }
 
@@ -221,8 +213,12 @@ class Game {
         this.bactArr.splice(index, 1);
     }
 
-    loseLive(){
-        if (this.lives>0) {
+    //-----------------------------------------------------
+    // Method: loseLive() 
+    // Descritption: Decrease live
+    //-----------------------------------------------------
+    loseLive() {
+        if (this.lives > 0) {
             this.lives--;
             document.getElementById("live").innerHTML = this.lives;
         }
@@ -232,8 +228,8 @@ class Game {
     // Method: loseScore() 
     // Descritption: Deduct three points from the score
     //-----------------------------------------------------
-    loseScore(){
-        if (this.scores>3){
+    loseScore() {
+        if (this.scores > 3) {
             this.scores -= 3;
             document.getElementById("score").innerHTML = this.scores;
         }
@@ -243,8 +239,8 @@ class Game {
     // Method: gainScore() 
     // Descritption: Add three points from the score
     //-----------------------------------------------------
-    gainScore(){
-        this.scores += 10;
+    gainScore() {
+        this.scores += 100;
         document.getElementById("score").innerHTML = this.scores;
     }
 
@@ -253,7 +249,7 @@ class Game {
     // Descritption: Checking if the user win the game
     //-----------------------------------------------------
     win() {
-        if (this.bactArr.length == 0 && this.lives > 0) {
+        if (this.bactArr.length == 0 && this.lives >= 1) {
             // debugger;
             alert("YOU WIN!");
             return true;
