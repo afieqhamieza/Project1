@@ -5,6 +5,8 @@ class Game {
     //-----------------------------------------------------
     constructor(_canvas, _gl) {
         this.bactArr = [];
+        this.lives = 3;
+
         //Creating a WebGL Context Canvas
         this.canvas = _canvas;
         this.gl = _gl;
@@ -99,7 +101,6 @@ class Game {
         return this.bactArr;
     }
 
-
     //-----------------------------------------------------
     // Method: start() 
     // Descritption: Start the game
@@ -136,16 +137,12 @@ class Game {
 
         this.disk.draw(this.gl, this.fColor);
 
+    } 
 
-
-
-        //this.g_updateCallbackarray = []
-        //this.g_frameCount = 0;
-        //this.g_updateEventListenerEnabled = false
-
-        //-----------------------------------------------------
-    } // End start()
-
+    //-----------------------------------------------------
+    // Method: update() 
+    // Descritption: Update each of the bacteria
+    //-----------------------------------------------------
     update() {
         this.bactArr.forEach(tempBact => {
             tempBact.update()
@@ -156,9 +153,31 @@ class Game {
         // --------------------checking for collision and collide
         for (let i = 0; i < this.bactArr.length; i++) {
             if (this.bactArr[i].alive) {
+
                 //check threshold, destroy bacteria
                 if (this.bactArr[i].getRadius() > 0.3) {
-                    this.destroy(i);
+                    if (!this.lose()) {
+                        this.lives--;
+                        this.destroy(i);
+
+                        switch (this.lives) {
+                            case 3:
+                                document.getElementById("live").innerHTML = "Lives left: 3";
+                                break;
+
+                            case 2:
+                                document.getElementById("live").innerHTML = "Lives left: 2";
+                                break;
+
+                            case 1:
+                                document.getElementById("live").innerHTML = "Lives left: 1";
+                                break;
+
+                            default:
+                                document.getElementById("live").innerHTML = "Lives left: 0";
+                                break;
+                        }
+                    }
                 }
                 else {
                     //check collision
@@ -182,51 +201,13 @@ class Game {
                 }
             }
         }
-
     }
 
-
-    // Test Method for drawing circles
-    drawCircle(_x, _y, _r, _color) {
-        // For storing the produces vertices
-        var vertices = [];
-
-        // Prepare vertices
-        for (let i = 1; i <= 360; i++) {
-            var y1 = _r * Math.sin(i) + _y;
-            var x1 = _r * Math.cos(i) + _x;
-
-            var y2 = _r * Math.sin(i + 1) + _y;
-            var x2 = _r * Math.cos(i + 1) + _x;
-
-            vertices.push(_x);
-            vertices.push(_y);
-            vertices.push(0);
-
-            vertices.push(x1);
-            vertices.push(y1);
-            vertices.push(0);
-
-            vertices.push(x2);
-            vertices.push(y2);
-            vertices.push(0);
-        }
-
-        // Pass the vertex data to the buffer
-        this.gl.bufferData(this.gl.ARRAY_BUFFER, new Float32Array(vertices), this.gl.STATIC_DRAW);
-
-        // Pass color data to uniform fColor
-        this.gl.uniform4f(this.fColor, _color[0], _color[1], _color[2], _color[3]);
-
-        // Drawing triangles
-        this.gl.clearColor(0, 1, 0, 0.9);
-        // Draw the triangle 360*3, 3 layers of vertices (disk)
-        this.gl.drawArrays(this.gl.TRIANGLES, 0, 360 * 3);
-    } // End draw
-
-    //destroy the bacteria
+    //-----------------------------------------------------
+    // Method: destroy() 
+    // Descritption: Destroy the bacteria by its index
+    //-----------------------------------------------------
     destroy(index) {
-
         this.r = 0;
         this.x = 0;
         this.y = 0;
@@ -234,6 +215,34 @@ class Game {
 
         // Remove destroyed bacteria from the bacteria array
         this.bactArr.splice(index, 1);
+    }
 
+    //-----------------------------------------------------
+    // Method: win() 
+    // Descritption: Checking if the user win the game
+    //-----------------------------------------------------
+    win() {
+        if (this.bactArr.length == 0 && this.lives > 0) {
+            // debugger;
+            alert("YOU WIN!");
+            return true;
+        }
+        return false;
+    }
+
+    //-----------------------------------------------------
+    // Method: lose() 
+    // Descritption: Checking if the user lose the game
+    //-----------------------------------------------------
+    lose() {
+        if (this.lives == 0) {
+            for (let i = 0; i < this.bactArr.length; i++) {
+                this.destroy(i);
+            }
+
+            alert("YOU LOSE!");
+            return true;
+        }
+        return false;
     }
 }
