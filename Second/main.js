@@ -57,6 +57,7 @@ function g_frameEventHndlr() {
 
 function g_clickEventHndlr(_x, _y) {
     if (!mainGameObj.win()) {
+        mainGameObj.gainScore();
         //something = something + 1;
         console.log(_x, _y)
 

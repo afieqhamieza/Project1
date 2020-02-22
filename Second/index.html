@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <title>Project: Infection</title>
-        <link rel="stylesheet" type="text/css" href="theme.css">
-        <script src="main.js"> </script>
-        <script src="game.js"> </script>
-        <script src="circle.js"> </script>
-        <script src="disk.js"> </script>
-        <script src="bact.js"></script>
-    </head>
-    <body onload="startGame()">
-        <div  class="container">
-           <!--<canvas onclick = "Mouseclk(e,canvas)" id="gameSurface" width="600" height="600">--> 
-            <canvas  id="gameSurface" width="600" height="600"></canvas>
-            <canvas id="particles" width="600" height="600"></canvas>
-            <canvas id="text" width="600" height="600"></canvas>      
-        </div>
-        <!--
+
+<head>
+    <meta charset="utf-8" />
+    <title>Project: Infection</title>
+    <link rel="stylesheet" type="text/css" href="theme.css">
+    <script src="main.js"> </script>
+    <script src="game.js"> </script>
+    <script src="circle.js"> </script>
+    <script src="disk.js"> </script>
+    <script src="bact.js"></script>
+</head>
+
+<body onload="startGame()">
+    <div class="container">
+        <!--<canvas onclick = "Mouseclk(e,canvas)" id="gameSurface" width="600" height="600">-->
+        <canvas id="gameSurface" width="600" height="600"></canvas>
+        <canvas id="particles" width="600" height="600"></canvas>
+        <canvas id="text" width="600" height="600"></canvas>
+    </div>
+    <!--
         <div>
             Click to Start Game
             <button onclick="test()">Click</button>
@@ -28,6 +30,8 @@
             this is a test
         </div>
         -->
-        <h1 id="live">Lives left: 3</h1>
-    </body>
+    <h1>Lives left: <span id="live"></span></h1>
+    <h1>Scores: <span id="score"></span></h1>
+</body>
+
 </html>

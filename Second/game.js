@@ -6,6 +6,7 @@ class Game {
     constructor(_canvas, _gl) {
         this.bactArr = [];
         this.lives = 3;
+        this.scores = 0;
 
         //Creating a WebGL Context Canvas
         this.canvas = _canvas;
@@ -149,26 +150,27 @@ class Game {
                 //check threshold, destroy bacteria
                 if (this.bactArr[i].getRadius() > 0.3) {
                     if (!this.lose()) {
-                        this.lives--;
+                        this.loseScore();
+                        this.loseLive();
                         this.destroy(i);
 
-                        switch (this.lives) {
-                            case 3:
-                                document.getElementById("live").innerHTML = "Lives left: 3";
-                                break;
+                        // switch (this.lives) {
+                        //     case 3:
+                        //         document.getElementById("live").innerHTML = "Lives left: 3";
+                        //         break;
 
-                            case 2:
-                                document.getElementById("live").innerHTML = "Lives left: 2";
-                                break;
+                        //     case 2:
+                        //         document.getElementById("live").innerHTML = "Lives left: 2";
+                        //         break;
 
-                            case 1:
-                                document.getElementById("live").innerHTML = "Lives left: 1";
-                                break;
+                        //     case 1:
+                        //         document.getElementById("live").innerHTML = "Lives left: 1";
+                        //         break;
 
-                            default:
-                                document.getElementById("live").innerHTML = "Lives left: 0";
-                                break;
-                        }
+                        //     default:
+                        //         document.getElementById("live").innerHTML = "Lives left: 0";
+                        //         break;
+                        // }
                     }
                 }
                 else {
@@ -179,11 +181,13 @@ class Game {
                                 //if there is collision, larger one consume it
                                 if (this.bactArr[i].getRadius() >= this.bactArr[j].getRadius()) {
                                     this.bactArr[i].setRadius(this.bactArr[i].getRadius() + 0.05);
+                                    this.loseScore();
                                     this.destroy(j);
                                     break;
                                 }
                                 else {
                                     this.bactArr[j].setRadius(this.bactArr[j].getRadius() + 0.05);
+                                    this.loseScore();
                                     this.destroy(i);
                                     break;
                                 }
@@ -207,6 +211,33 @@ class Game {
 
         // Remove destroyed bacteria from the bacteria array
         this.bactArr.splice(index, 1);
+    }
+
+    loseLive(){
+        if (this.lives>0) {
+            this.lives--;
+            document.getElementById("live").innerHTML = this.lives;
+        }
+    }
+
+    //-----------------------------------------------------
+    // Method: loseScore() 
+    // Descritption: Deduct three points from the score
+    //-----------------------------------------------------
+    loseScore(){
+        if (this.scores>3){
+            this.scores -= 3;
+            document.getElementById("score").innerHTML = this.scores;
+        }
+    }
+
+    //-----------------------------------------------------
+    // Method: gainScore() 
+    // Descritption: Add three points from the score
+    //-----------------------------------------------------
+    gainScore(){
+        this.scores += 10;
+        document.getElementById("score").innerHTML = this.scores;
     }
 
     //-----------------------------------------------------
