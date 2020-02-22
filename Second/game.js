@@ -13,9 +13,6 @@ class Game {
         this.canvas = _canvas;
         this.gl = _gl;
 
-        //this.canvas = document.getElementById('gameSurface');
-        //this.gl = this.canvas.getContext('webgl');
-
         // Vertex and fragement shader source
         var vertCode = [
             'attribute vec3 coordinates;',
@@ -78,27 +75,8 @@ class Game {
         // Point an attribute to the currently bound VBO and enable the attribute
         this.gl.vertexAttribPointer(coord, 3, this.gl.FLOAT, false, 0, 0);
         this.gl.enableVertexAttribArray(coord);
-
-
-        //*/
-
-        // Start Click Listenter
-        //this.canvas.onmousedown = function(e, canvas){console.log(e.clientX, e.clientY);};
-
-        //this.canvas.onmousedown = function(e, canvas){this.someFuntion};
-        //document.getElementById("gameSurface").addEventListener("mousedown", mouseDown);
-
-        /*
-        function mouseDown() {
-            console.log('someFuntion');
-        }
-
-        this.something = 0;
-        */
-
-
-
     }
+
     getBactArr() {
         return this.bactArr;
     }
@@ -138,7 +116,6 @@ class Game {
         }
 
         this.disk.draw(this.gl, this.fColor);
-
     }
 
     //-----------------------------------------------------
@@ -152,7 +129,6 @@ class Game {
             });
 
             this.disk.draw(this.gl, this.fColor);
-
 
             // --------------------checking for collision and collide
             for (let i = 0; i < this.bactArr.length; i++) {

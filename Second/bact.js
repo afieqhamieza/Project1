@@ -81,19 +81,14 @@ class Bact extends Circle {
 
     clicked(_x,_y)
     {
-        
         var xDist = this.x - _x;
         var yDist = this.y - _y;
-        //var rad = bact1.getRadius() + bact2.getRadius();  
 
         var totalDist = Math.sqrt(Math.pow(xDist, 2) + Math.pow(yDist, 2));
 
         if ((totalDist - this.r) < 0) {
             return true;
-            //console.log(Math.round(_x*10)/10,Math.round(_y*10)/10,'is in',Math.round(this.x*10)/10,Math.round(this.y*10)/10)
         }
-
-        //console.log(Math.round(_x*10)/10,Math.round(_y*10)/10,'is not in',Math.round(this.x*10)/10,Math.round(this.y*10)/10)
 
         return false;
     }

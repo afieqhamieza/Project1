@@ -11,19 +11,16 @@ function startGame() {
 
     window.requestAnimationFrame(g_frameEventHndlr);
 
-    canvas.onmousedown = function(e, _canvas)
-    {  
+    canvas.onmousedown = function (e, _canvas) {
+        scaledY = scaleInRange(e.clientY, 0, canvas.height, -1, 1);
+        scaledX = scaleInRange((canvas.width - e.clientX), 0, canvas.width, -1, 1)
 
-        scaledY = scaleInRange(e.clientY,0,canvas.height,-1,1);
-        scaledX = scaleInRange((canvas.width-e.clientX),0,canvas.width,-1,1)
-
-        g_clickEventHndlr(scaledX,scaledY);
+        g_clickEventHndlr(scaledX, scaledY);
     };
 }
 
-function scaleInRange(_x,_minIn,_maxIn,_minOut,_maxOut)
-{
-   return Math.round((((_maxIn - _minIn)/(_maxOut - _minOut)) - _x)*(_maxOut - _minOut) / (_maxIn - _minIn)*100)/100
+function scaleInRange(_x, _minIn, _maxIn, _minOut, _maxOut) {
+    return Math.round((((_maxIn - _minIn) / (_maxOut - _minOut)) - _x) * (_maxOut - _minOut) / (_maxIn - _minIn) * 100) / 100
 }
 
 function collision(bact1, bact2) {
@@ -54,17 +51,12 @@ function g_frameEventHndlr() {
 //---------------------------------------------------------
 // Click
 //---------------------------------------------------------
-
-function g_clickEventHndlr(_x,_y)
-{
+function g_clickEventHndlr(_x, _y) {
     var tempArr = mainGameObj.getBactArr()
-    for (let i= 0; i < tempArr.length; i++) 
-    { 
-        if(tempArr[i].clicked(_x,_y) == true)
-        {
+    for (let i = 0; i < tempArr.length; i++) {
+        if (tempArr[i].clicked(_x, _y) == true) {
             mainGameObj.gainScore();
             mainGameObj.destroy(i)
         }
-       
     }
 }

@@ -16,7 +16,6 @@ class Disk extends Circle
       this.gl = _gl;
       this.fColor = _fColor;
 
-    //
     // For storing the produces vertices
     var vertices = [];
 
@@ -50,6 +49,7 @@ class Disk extends Circle
 
     // Drawing triangles
     this.gl.clearColor(0, 1, 0, 0.9);
+
     // Draw the triangle 360*3, 3 layers of vertices (disk)
     this.gl.drawArrays(this.gl.TRIANGLES, 0, 360 * 3);
   }
