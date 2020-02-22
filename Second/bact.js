@@ -9,7 +9,7 @@ class Bact extends Circle {
         super(x, y, 0.1, color);
 
         this.maxRadius = 0.3;
-        this.growRate = 0.0006;
+        this.growRate = 0.0001;
     }
 
     setMaxRadius(x){
@@ -107,6 +107,7 @@ class Bact extends Circle {
 
     clicked(_x,_y)
     {
+        
         var xDist = this.x - _x;
         var yDist = this.y - _y;
         //var rad = bact1.getRadius() + bact2.getRadius();  
@@ -115,7 +116,10 @@ class Bact extends Circle {
 
         if ((totalDist - this.r) < 0) {
             return true;
+            //console.log(Math.round(_x*10)/10,Math.round(_y*10)/10,'is in',Math.round(this.x*10)/10,Math.round(this.y*10)/10)
         }
+
+        //console.log(Math.round(_x*10)/10,Math.round(_y*10)/10,'is not in',Math.round(this.x*10)/10,Math.round(this.y*10)/10)
 
         return false;
     }

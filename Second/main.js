@@ -12,44 +12,21 @@ function startGame()
 
     window.requestAnimationFrame(g_frameEventHndlr);
 
-    
-    canvas.onmousedown = function(e, canvas)
+    canvas.onmousedown = function(e, _canvas)
     {  
-        //console.log(window.innerHeight,window.innerWidth);
-        var inRange = [-1,1]
-        var outRange = [window.innerHeight,window.innerWidth];
-        //console.log(documentElement.clientHeight,documentElement.clientWidths);
-        
-        scaledX = convertRange(e.clientX,inRange,outRange);
-        scaledY = convertRange(e.clientY,inRange,outRange);
 
-        scaledX = convertRange(e.clientX,inRange,outRange);
-        scaledY = convertRange(e.clientY,inRange,outRange);
+        scaledY = scaleInRange(e.clientY,0,canvas.height,-1,1);
+        scaledX = scaleInRange((canvas.width-e.clientX),0,canvas.width,-1,1)
 
-
-        //scaledY = convertRange();
-        //g_clickEventHndlr(e.clientX, e.clientY);
-
-        console.log(scaledX,scaledY);
+        g_clickEventHndlr(scaledX,scaledY);
     };
 }
 
-function convertRange( value, r1, r2 ) 
-{ 
-    return ( value - r1[ 0 ] ) * ( r2[ 1 ] - r2[ 0 ] ) / ( r1[ 1 ] - r1[ 0 ] ) + r2[ 0 ];
-}
+f
 
-
-function scaleInRange(_x,_minDomain,_maxDomain,_minRange,_maxRange)
+function scaleInRange(_x,_minIn,_maxIn,_minOut,_maxOut)
 {
-    return (_in -_minRange)/(_maxRange-_maxRange);
-}
-
-function scaleMatrix(_inMatrix,_transform)
-{
-    var outMatrix = [];
-
-    return outMatrix;
+   return Math.round((((_maxIn - _minIn)/(_maxOut - _minOut)) - _x)*(_maxOut - _minOut) / (_maxIn - _minIn)*100)/100
 }
 
 function collision(bact1, bact2) {
@@ -65,7 +42,10 @@ function collision(bact1, bact2) {
 
     return false;
 }
-var something = 0;
+
+//---------------------------------------------------------
+// Frame
+//---------------------------------------------------------
 
 function g_frameEventHndlr()
 {
@@ -74,115 +54,19 @@ function g_frameEventHndlr()
     window.requestAnimationFrame(g_frameEventHndlr);
 }
 
-function g_clickEventHndlr(_x,_y)
-{
-    //something = something + 1;
-    console.log(_x,_y)
-
-    mainGameObj.destroy(0);
-
-        /*
-    for (let i= 0; i < 5; i++) 
-    {
-        if(mainGameObj.bactArr[i].clicked(_x,_y) == true)
-        {
-            console.log(i, "was clicked");
-        }
-        else
-        {
-            console.log(i, "was not clicked");
-        }
-        
-        //const element = array[index];  
-    }
-    //*/
-
-    //mainGameObj.update();
-
-   //window.requestAnimationFrame(g_frameEventHndlr);
-}
-/*
-document.getElementById("gameSurface").addEventListener("mousedown", mouseDown);
-document.getElementById("gameSurface").addEventListener("mouseup", mouseUp);
-
-function mouseDown() {
-  document.getElementById("demo").innerHTML = "The mouse button is held down.";
-}
-
-function mouseUp() {
-  document.getElementById("demo").innerHTML = "You released the mouse button.";
-}
-//*/
-// -------------------------------------------------------
+//---------------------------------------------------------
 // Click
 //---------------------------------------------------------
-/*
 
-g_clickEventHndlr(_x,_y)
+function g_clickEventHndlr(_x,_y)
 {
-    console.log(_x,_y);
-}
-//*/
-
-
-// -------------------------------------------------------
-// Grow
-//----------------------------------------------------------
-
-/*
-
-var g_updateCallbackarray = []
-var g_frameCount = 0;
-var g_updateEventListenerEnabled = false
-
-function toggleUpdateEventListener()
-{
-    if (g_updateEventListenerEnabled)
-    {
-        g_updateEventListenerEnabled = false;
+    var tempArr = mainGameObj.getBactArr()
+    for (let i= 0; i < tempArr.length; i++) 
+    { 
+        if(tempArr[i].clicked(_x,_y) == true)
+        {
+            mainGameObj.destroy(i)
+        }
+       
     }
-    else
-    {
-        g_updateEventListenerEnabled = true;
-        requestAnimationFrame(updateEventHndlr);
-    }
-
-    //console.log("updateEventListener " , g_updateEventListenerEnabled)
 }
-function updateEventListener()
-{
-    if (g_updateEventListenerEnabled) requestAnimationFrame(updateEventHndlr);
-}
-
-function addUpdateCallback(_callback) 
-{
-    g_updateCallbackarray.push(_callback);
-}
-
-function removeUpdateCallback(_callback) 
-{
-    
-}
-
-function updateEventHndlr()
-{
-    // Increament Frame Count 
-    //g_frameCount++;
-    
-    //console.log(g_frameCount);
-    for (let index = 0; index < bactArr.length; index++) {
-        bactArr[index].update()
-        
-    }
-
-    
-    bactArr.forEach(element => {
-        element.update()
-    });
-  
-    if (g_updateEventListenerEnabled) requestAnimationFrame(updateEventHndlr);
-    
-    //updateEventListener();
-}
-
-//*/

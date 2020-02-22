@@ -95,6 +95,9 @@ class Game {
 
 
     }
+    getBactArr(){
+        return this.bactArr;
+    }
 
 
     //-----------------------------------------------------
